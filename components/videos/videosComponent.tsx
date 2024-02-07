@@ -10,15 +10,11 @@ import { TableModal } from "./table/tableModal";
 import { DEFAULT_VIDEO } from "@/constants/video";
 
 export const VideosComponent = () => {
-  const { data: { results = {} } = {}, isLoading } = useVideos();
-
-  /* console.log(data); */
-  /* console.log(results); */
-
-  /* useEffect() */
-
   const [showModal, setShowModal] = useState<boolean>(false);
   const [video, setVideo] = useState<Video>(DEFAULT_VIDEO);
+  const [pageSelected, setPageSelected] = useState<number>(1);
+
+  const { data: { results = {} } = {}, isLoading } = useVideos(pageSelected);
 
   const handleOpenModal = (video: Video) => {
     setShowModal(true);
@@ -42,7 +38,12 @@ export const VideosComponent = () => {
         <div className="flex items-center justify-center py-8 text-4xl text-gray-400 font-medium">
           <h1>Videos</h1>
         </div>
-        <VideoTable videos={results} openModal={handleOpenModal} />
+        <VideoTable
+          videos={results}
+          openModal={handleOpenModal}
+          pageSelected={pageSelected}
+          setPageSelected={setPageSelected}
+        />
       </Show>
     </section>
   );
