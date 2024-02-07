@@ -8,3 +8,9 @@ export type Video = {
   updated_at: string;
   url: string;
 };
+
+export type ErrorHandle = {
+  message: string;
+  name: string;
+  code: string | number;
+};

@@ -22,4 +22,4 @@ export const DEFAULT_VIDEO: Video = {
   updated_at: "2022-08-03T16:32:40.623000Z",
 };
 
-export const TOTAL_PAGES = 2;
+export const TOTAL_PAGES = 3;

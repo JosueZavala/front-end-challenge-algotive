@@ -118,7 +118,7 @@ const Pagination = ({
   }, [totalPages, pageSelected]);
 
   return (
-    <div className="flex flex-row gap-x-2 mt-4">
+    <div className="flex flex-row gap-x-2 mt-4 mb-8">
       <PaginationButton
         icon={`<`}
         disabled={pageSelected === 1}
