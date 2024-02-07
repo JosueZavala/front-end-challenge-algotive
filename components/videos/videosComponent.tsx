@@ -1,23 +1,31 @@
 "use client";
 
 import { useVideos } from "@/hooks/use-videos";
-import { httpClient } from "@/utils/http";
 import { useEffect } from "react";
+import { VideoTable } from "./table/videoTable";
+import { Show } from "../ui/Show";
 
 export const VideosComponent = () => {
-  const { data } = useVideos();
+  const { data: { results = {} } = {}, isLoading } = useVideos();
 
-  /* const getVideosFromApi = async (): Promise<number> => {
-    //const res = await fetch("http://localhost:8000/api/v1/videos");
-    const res = await httpClient.get(`/api/v1/videos`);
+  /* console.log(data); */
+  /* console.log(results); */
 
-    console.log(res);
-    return 2;
-  }; */
+  /* useEffect() */
 
-  /* useEffect(() => {
-    getVideosFromApi();
-  }, []); */
-
-  return <div>Test</div>;
+  return (
+    <section className="flex flex-col w-full overflow-hidden">
+      <Show condition={isLoading}>
+        <div className="flex items-center justify-center text-4xl text-gray-400 font-medium">
+          Loading...
+        </div>
+      </Show>
+      <Show condition={!isLoading && Boolean(results.length)}>
+        <div className="flex items-center justify-center py-8 text-4xl text-gray-400 font-medium">
+          <h1>Videos</h1>
+        </div>
+        <VideoTable videos={results} />
+      </Show>
+    </section>
+  );
 };
