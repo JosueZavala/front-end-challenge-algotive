@@ -18,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`bg-gray-900 py-10`}>
+        <div id="portal" />
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>

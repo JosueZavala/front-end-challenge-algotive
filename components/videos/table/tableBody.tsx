@@ -1,18 +1,31 @@
 import { Video } from "@/types/videos";
+import { GetVideoID } from "@/utils/common";
 import dayjs from "dayjs";
 import Image from "next/image";
 
-export const TBody = ({ videos }: { videos: Video[] }) => {
+export const TBody = ({
+  videos,
+  openModal,
+}: {
+  videos: Video[];
+  openModal: (video: Video) => void;
+}) => {
   return (
     <tbody className="bg-gray-800">
       {videos.map((video, index) => (
-        <TRow key={`table_row_${index}`} video={video} rowKey={index} />
+        <TRow key={`table_row_${index}`} video={video} openModal={openModal} />
       ))}
     </tbody>
   );
 };
 
-const TRow = ({ video, rowKey }: { video: Video; rowKey: number }) => {
+const TRow = ({
+  video,
+  openModal,
+}: {
+  video: Video;
+  openModal: (video: Video) => void;
+}) => {
   /* const values = Object.values(video); */
   const {
     id,
@@ -24,11 +37,13 @@ const TRow = ({ video, rowKey }: { video: Video; rowKey: number }) => {
     updated_at,
     url,
   } = video;
-  const urlVideo = url.replace("https://www.youtube.com/embed/", "");
-  const videoId = urlVideo.split("?")[0];
 
+  const videoId = GetVideoID(url);
   return (
-    <tr className="odd:bg-black odd:bg-opacity-20 cursor-pointer">
+    <tr
+      className="odd:bg-black odd:bg-opacity-20 cursor-pointer"
+      onClick={() => openModal(video)}
+    >
       <td className="p-4">
         <div className="flex items-center gap-3">
           <Image
